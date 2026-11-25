@@ -12,6 +12,8 @@ lint:
 
 # Needs Hammerspoon running; uses its built-in hs.doc.builder.
 docs:
+# The folder path is spliced into a Lua string, so refuse a path that could break out of it.
+	$(if $(findstring ',$(CURDIR))$(findstring ",$(CURDIR))$(findstring \,$(CURDIR)),$(error docs: the folder path contains a quote or backslash; move the checkout))
 	hs -c 'local p="$(CURDIR)/"; local f=io.open(p.."docs.json","w"); f:write(hs.doc.builder.genJSON(p.."init.lua")); f:close(); return "docs.json written"' </dev/null
 
 # dist/AudioShortlist.spoon.zip holds one folder, AudioShortlist.spoon, with the runtime files only.
