@@ -1,0 +1,21 @@
+{
+  "sha": "59b935489c31f75393c44f01729a1269b7673a12",
+  "base_sha": "2f4ab41509d1f201a47de841234acb3426a4a2ea",
+  "branch": "main",
+  "timestamp": "2026-11-25T22:25:30Z",
+  "status": "pass",
+  "findings_count": 0,
+  "critical_count": 0,
+  "high_count": 0,
+  "findings": [],
+  "reviewed_by": "jrvis-security-review",
+  "claude_model": "claude-opus-5-5",
+  "prompt_version": "anthropic-ccv2.1.70-modified",
+  "chunks": 0,
+  "chunk_bytes": 300000,
+  "excluded_paths": [
+    "README.md"
+  ],
+  "truncated_paths": [],
+  "notes": "Incremental: the only change since the base is README.md, a documentation file excluded by Hard Exclusion 17, so no chunk needed review. gitleaks ran on commit."
+}
