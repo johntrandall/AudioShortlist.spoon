@@ -13,6 +13,8 @@ A Mac with a dock, a few monitors and a webcam can list a dozen sound devices, m
 - **Nothing to keep up to date:** a new device you plug in appears by itself under "Other outputs" or "Other inputs".
 - **No risk to your sound:** it only tells macOS which device to use, exactly as System Settings does, and never sits in the audio path.
 
+To try it: download the zip, double-click it, and add two lines to your Hammerspoon config ([Quick start](#quick-start)).
+
 ## What it does
 
 AudioShortlist adds one menu bar item. Its menu lists your favourite outputs and your favourite inputs, each under your label, with a tick on the current default and "(not connected)" on a favourite that is unplugged. Below them are "Mute output", the submenus "Other outputs" and "Other inputs" (every connected device that is not a favourite, read live when the menu opens), and "Sound Settings…". Choosing a device makes it the macOS default; an output also becomes the device for alert sounds, unless you turn that off.
@@ -103,7 +105,7 @@ spoon.AudioShortlist:configure({
 
 **Favourites.** Each entry has a `label` and exactly one of:
 
-- `name`: the device's exact macOS name, as `describe()` shows it.
+- `name`: the device's exact macOS name, as `describe()` shows it without any " #2"-style suffix. The suffix only tells apart devices that share a name; for those, use `uid`.
 - `uid`: a fragment of the device's CoreAudio UID. Use it when several devices share a name (identical monitors), or when a dock's UID changes with the port it is plugged into. Read UIDs with `hs -c 'for _,d in ipairs(hs.audiodevice.allOutputDevices()) do print(d:name(), d:uid()) end' </dev/null`.
 
 **Watching for changes.** The icon shows mute state, so it has to notice when you mute from the keyboard or another app. `hs.audiodevice.watcher` would do that instantly, but it holds a single callback for all of Hammerspoon, and setting it would silently replace any other Spoon's or your own. So the default is `"poll"`: a timer reads the default output and its mute state every two seconds and redraws only when they change. Choose `"global"` if nothing else in your setup uses `hs.audiodevice.watcher`, or `"none"` to update only on the menu's own actions.
@@ -119,7 +121,7 @@ spoon.AudioShortlist:bindHotkeys({
 })
 ```
 
-`nextOutput` and `nextInput` step through the connected devices of the first list and wrap round.
+`nextOutput` and `nextInput` step through the connected devices in the main list (your favourites, or every device when you have none) and wrap round.
 
 ## Scripting
 
@@ -136,7 +138,7 @@ input: Podcast mic [Yeti Stereo Microphone]
 ok
 ```
 
-`select()` accepts only `"output"` or `"input"` and a label that is in the menu at that moment, and answers `ok`, `not connected: …` or `no such label: …`. Full method reference: [docs.json](docs.json), or the Hammerspoon console's `hs.doc`.
+`select()` accepts only `"output"` or `"input"` and a label that is in the menu at that moment, and answers `ok`, or a reason: `not connected: …`, `no such label: …`, or `no such device: …` when that kind has no favourites. Full method reference: [docs.json](docs.json), or the Hammerspoon console's `hs.doc`.
 
 ## Keeping the icon where you put it
 
