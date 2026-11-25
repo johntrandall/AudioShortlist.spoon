@@ -1,0 +1,610 @@
+[
+  {
+    "Constant" : [
+
+    ],
+    "submodules" : [
+
+    ],
+    "Function" : [
+
+    ],
+    "Variable" : [
+      {
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "name" : "logger",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist.logger",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "def" : "AudioShortlist.logger",
+        "parameters" : [
+
+        ]
+      }
+    ],
+    "stripped_doc" : [
+
+    ],
+    "Deprecated" : [
+
+    ],
+    "type" : "Module",
+    "desc" : "A menu bar item that lists the audio devices you use, under names you choose, and makes the",
+    "Constructor" : [
+
+    ],
+    "doc" : "A menu bar item that lists the audio devices you use, under names you choose, and makes the\none you pick the macOS default output or input. Everything else that is connected stays one\nlevel down, under \"Other outputs\" and \"Other inputs\", built live each time the menu opens.\n\nIt only changes which device macOS uses by default; it never touches the audio stream.\n\nWith no configuration it lists every connected output and input. Example configuration:\n```\nhs.loadSpoon(\"AudioShortlist\")\nspoon.AudioShortlist:configure({\n    outputs = {\n        { label = \"Desk speakers\", name = \"External Headphones\" },\n        { label = \"Laptop\", name = \"MacBook Pro Speakers\" },\n    },\n    inputs = {\n        { label = \"Podcast mic\", name = \"Yeti Stereo Microphone\" },\n        { label = \"Dock headset\", uid = \"TS3 Plus\" },  -- a fragment of the CoreAudio UID\n    },\n}):start()\n```\n\nDownload: [https:\/\/github.com\/johntrandall\/AudioShortlist.spoon\/releases\/latest\/download\/AudioShortlist.spoon.zip](https:\/\/github.com\/johntrandall\/AudioShortlist.spoon\/releases\/latest\/download\/AudioShortlist.spoon.zip)",
+    "Method" : [
+      {
+        "doc" : "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.",
+          ""
+        ],
+        "desc" : "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.",
+        "name" : "init",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:init()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:init()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.\n\nParameters:\n * options - A table with any of these keys:\n  * outputs - A list of favourite outputs, in menu order. Each is a table with `label` (what the menu shows) and either `name` (the device's exact macOS name) or `uid` (a fragment of its CoreAudio UID, for devices whose names are not unique). Default: empty, which lists every connected output.\n  * inputs - A list of favourite inputs, in the same form. Default: empty, which lists every connected input.\n  * alertSoundsFollowOutput - Boolean; choosing an output also makes it the device for alert sounds. Default: true.\n  * showMute - Boolean; show the \"Mute output\" row. Default: true.\n  * showOtherOutputs - Boolean; show the \"Other outputs\" submenu when outputs has favourites. Default: true.\n  * showOtherInputs - Boolean; show the \"Other inputs\" submenu when inputs has favourites. Default: true.\n  * showSoundSettings - Boolean; show the \"Sound Settings…\" row. Default: true.\n  * showTransport - Boolean; show \"(USB)\", \"(Bluetooth)\" and so on after names in the Other submenus. Default: true.\n  * title - String; text to show in the menu bar instead of an icon, such as \"🔊\". Default: nil (icons).\n  * mutedTitle - String; text while the output is muted. Default: the title.\n  * icon - String; a macOS system image name or the path of an image file, used as a template image. Default: \"NSTouchBarAudioOutputVolumeHighTemplate\".\n  * mutedIcon - String; the icon while the output is muted. Default: \"NSTouchBarAudioOutputMuteTemplate\".\n  * tooltip - String. Default: \"Audio devices\".\n  * autosaveName - String; the name macOS uses to keep the item's place in the menu bar. Default: \"AudioShortlist\".\n  * watch - \"poll\", \"global\" or \"none\": how the icon follows mute and device changes made outside the menu. \"poll\" checks every `pollInterval` seconds; \"global\" uses `hs.audiodevice.watcher`, which has one callback for all of Hammerspoon, so it replaces any callback another Spoon or your config has set. Default: \"poll\".\n  * pollInterval - Number of seconds between checks when watch is \"poll\"; at least 0.5. Default: 2.\n\nReturns:\n * The AudioShortlist object\n\nNotes:\n * Changing the configuration of a running menu takes effect at once.",
+        "stripped_doc" : [
+          "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.",
+          ""
+        ],
+        "desc" : "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.",
+        "name" : "configure",
+        "notes" : [
+          " * Changing the configuration of a running menu takes effect at once."
+        ],
+        "signature" : "AudioShortlist:configure(options)",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object",
+          ""
+        ],
+        "def" : "AudioShortlist:configure(options)",
+        "parameters" : [
+          " * options - A table with any of these keys:",
+          "  * outputs - A list of favourite outputs, in menu order. Each is a table with `label` (what the menu shows) and either `name` (the device's exact macOS name) or `uid` (a fragment of its CoreAudio UID, for devices whose names are not unique). Default: empty, which lists every connected output.",
+          "  * inputs - A list of favourite inputs, in the same form. Default: empty, which lists every connected input.",
+          "  * alertSoundsFollowOutput - Boolean; choosing an output also makes it the device for alert sounds. Default: true.",
+          "  * showMute - Boolean; show the \"Mute output\" row. Default: true.",
+          "  * showOtherOutputs - Boolean; show the \"Other outputs\" submenu when outputs has favourites. Default: true.",
+          "  * showOtherInputs - Boolean; show the \"Other inputs\" submenu when inputs has favourites. Default: true.",
+          "  * showSoundSettings - Boolean; show the \"Sound Settings…\" row. Default: true.",
+          "  * showTransport - Boolean; show \"(USB)\", \"(Bluetooth)\" and so on after names in the Other submenus. Default: true.",
+          "  * title - String; text to show in the menu bar instead of an icon, such as \"🔊\". Default: nil (icons).",
+          "  * mutedTitle - String; text while the output is muted. Default: the title.",
+          "  * icon - String; a macOS system image name or the path of an image file, used as a template image. Default: \"NSTouchBarAudioOutputVolumeHighTemplate\".",
+          "  * mutedIcon - String; the icon while the output is muted. Default: \"NSTouchBarAudioOutputMuteTemplate\".",
+          "  * tooltip - String. Default: \"Audio devices\".",
+          "  * autosaveName - String; the name macOS uses to keep the item's place in the menu bar. Default: \"AudioShortlist\".",
+          "  * watch - \"poll\", \"global\" or \"none\": how the icon follows mute and device changes made outside the menu. \"poll\" checks every `pollInterval` seconds; \"global\" uses `hs.audiodevice.watcher`, which has one callback for all of Hammerspoon, so it replaces any callback another Spoon or your config has set. Default: \"poll\".",
+          "  * pollInterval - Number of seconds between checks when watch is \"poll\"; at least 0.5. Default: 2.",
+          ""
+        ]
+      },
+      {
+        "doc" : "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.",
+          ""
+        ],
+        "desc" : "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.",
+        "name" : "refresh",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:refresh()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:refresh()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Creates the menu bar item and starts following mute and device changes.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object\n\nNotes:\n * The item is created with its autosave name in the same call. Set afterwards, macOS has already placed the item as new, and menu bar managers such as Ice or Thaw file it as hidden on every reload.",
+        "stripped_doc" : [
+          "Creates the menu bar item and starts following mute and device changes.",
+          ""
+        ],
+        "desc" : "Creates the menu bar item and starts following mute and device changes.",
+        "name" : "start",
+        "notes" : [
+          " * The item is created with its autosave name in the same call. Set afterwards, macOS has already placed the item as new, and menu bar managers such as Ice or Thaw file it as hidden on every reload."
+        ],
+        "signature" : "AudioShortlist:start()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object",
+          ""
+        ],
+        "def" : "AudioShortlist:start()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Removes the menu bar item and stops following changes.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Removes the menu bar item and stops following changes.",
+          ""
+        ],
+        "desc" : "Removes the menu bar item and stops following changes.",
+        "name" : "stop",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:stop()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:stop()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Describes the current default output and input, with their labels when they are favourites.\n\nParameters:\n * None\n\nReturns:\n * A string of two lines, such as \"output: Laptop [MacBook Pro Speakers]\"",
+        "stripped_doc" : [
+          "Describes the current default output and input, with their labels when they are favourites.",
+          ""
+        ],
+        "desc" : "Describes the current default output and input, with their labels when they are favourites.",
+        "name" : "status",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:status()",
+        "type" : "Method",
+        "returns" : [
+          " * A string of two lines, such as \"output: Laptop [MacBook Pro Speakers]\""
+        ],
+        "def" : "AudioShortlist:status()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.\n\nParameters:\n * None\n\nReturns:\n * A string\n\nNotes:\n * For scripts and agents that cannot see the menu: `hs -c 'return spoon.AudioShortlist:describe()' <\/dev\/null`",
+        "stripped_doc" : [
+          "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.",
+          ""
+        ],
+        "desc" : "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.",
+        "name" : "describe",
+        "notes" : [
+          " * For scripts and agents that cannot see the menu: `hs -c 'return spoon.AudioShortlist:describe()' <\/dev\/null`"
+        ],
+        "signature" : "AudioShortlist:describe()",
+        "type" : "Method",
+        "returns" : [
+          " * A string",
+          ""
+        ],
+        "def" : "AudioShortlist:describe()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Makes a device the default, by the label the menu shows for it.\n\nParameters:\n * kind - \"output\" or \"input\"\n * label - A favourite's label, or, when that kind has no favourites, a connected device's name as the menu shows it\n\nReturns:\n * \"ok\", or a short reason the switch did not happen (\"not connected: …\", \"no such label: …\")",
+        "stripped_doc" : [
+          "Makes a device the default, by the label the menu shows for it.",
+          ""
+        ],
+        "desc" : "Makes a device the default, by the label the menu shows for it.",
+        "name" : "select",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:select(kind, label)",
+        "type" : "Method",
+        "returns" : [
+          " * \"ok\", or a short reason the switch did not happen (\"not connected: …\", \"no such label: …\")"
+        ],
+        "def" : "AudioShortlist:select(kind, label)",
+        "parameters" : [
+          " * kind - \"output\" or \"input\"",
+          " * label - A favourite's label, or, when that kind has no favourites, a connected device's name as the menu shows it",
+          ""
+        ]
+      },
+      {
+        "doc" : "Mutes or unmutes the default output device.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Mutes or unmutes the default output device.",
+          ""
+        ],
+        "desc" : "Mutes or unmutes the default output device.",
+        "name" : "toggleMute",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:toggleMute()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:toggleMute()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.",
+          ""
+        ],
+        "desc" : "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.",
+        "name" : "showMenu",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:showMenu()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:showMenu()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Binds hotkeys for AudioShortlist.\n\nParameters:\n * mapping - A table with any of these keys, each a hotkey spec such as `{ {\"ctrl\", \"alt\"}, \"m\" }`:\n  * toggleMute - Mute or unmute the default output\n  * nextOutput - Switch to the next connected output in the main list\n  * nextInput - Switch to the next connected input in the main list\n  * showMenu - Open the menu\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Binds hotkeys for AudioShortlist.",
+          ""
+        ],
+        "desc" : "Binds hotkeys for AudioShortlist.",
+        "name" : "bindHotkeys",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:bindHotkeys(mapping)",
+        "parameters" : [
+          " * mapping - A table with any of these keys, each a hotkey spec such as `{ {\"ctrl\", \"alt\"}, \"m\" }`:",
+          "  * toggleMute - Mute or unmute the default output",
+          "  * nextOutput - Switch to the next connected output in the main list",
+          "  * nextInput - Switch to the next connected input in the main list",
+          "  * showMenu - Open the menu",
+          ""
+        ]
+      }
+    ],
+    "Command" : [
+
+    ],
+    "Field" : [
+
+    ],
+    "items" : [
+      {
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "name" : "logger",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist.logger",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "def" : "AudioShortlist.logger",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Binds hotkeys for AudioShortlist.\n\nParameters:\n * mapping - A table with any of these keys, each a hotkey spec such as `{ {\"ctrl\", \"alt\"}, \"m\" }`:\n  * toggleMute - Mute or unmute the default output\n  * nextOutput - Switch to the next connected output in the main list\n  * nextInput - Switch to the next connected input in the main list\n  * showMenu - Open the menu\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Binds hotkeys for AudioShortlist.",
+          ""
+        ],
+        "desc" : "Binds hotkeys for AudioShortlist.",
+        "name" : "bindHotkeys",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:bindHotkeys(mapping)",
+        "parameters" : [
+          " * mapping - A table with any of these keys, each a hotkey spec such as `{ {\"ctrl\", \"alt\"}, \"m\" }`:",
+          "  * toggleMute - Mute or unmute the default output",
+          "  * nextOutput - Switch to the next connected output in the main list",
+          "  * nextInput - Switch to the next connected input in the main list",
+          "  * showMenu - Open the menu",
+          ""
+        ]
+      },
+      {
+        "doc" : "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.\n\nParameters:\n * options - A table with any of these keys:\n  * outputs - A list of favourite outputs, in menu order. Each is a table with `label` (what the menu shows) and either `name` (the device's exact macOS name) or `uid` (a fragment of its CoreAudio UID, for devices whose names are not unique). Default: empty, which lists every connected output.\n  * inputs - A list of favourite inputs, in the same form. Default: empty, which lists every connected input.\n  * alertSoundsFollowOutput - Boolean; choosing an output also makes it the device for alert sounds. Default: true.\n  * showMute - Boolean; show the \"Mute output\" row. Default: true.\n  * showOtherOutputs - Boolean; show the \"Other outputs\" submenu when outputs has favourites. Default: true.\n  * showOtherInputs - Boolean; show the \"Other inputs\" submenu when inputs has favourites. Default: true.\n  * showSoundSettings - Boolean; show the \"Sound Settings…\" row. Default: true.\n  * showTransport - Boolean; show \"(USB)\", \"(Bluetooth)\" and so on after names in the Other submenus. Default: true.\n  * title - String; text to show in the menu bar instead of an icon, such as \"🔊\". Default: nil (icons).\n  * mutedTitle - String; text while the output is muted. Default: the title.\n  * icon - String; a macOS system image name or the path of an image file, used as a template image. Default: \"NSTouchBarAudioOutputVolumeHighTemplate\".\n  * mutedIcon - String; the icon while the output is muted. Default: \"NSTouchBarAudioOutputMuteTemplate\".\n  * tooltip - String. Default: \"Audio devices\".\n  * autosaveName - String; the name macOS uses to keep the item's place in the menu bar. Default: \"AudioShortlist\".\n  * watch - \"poll\", \"global\" or \"none\": how the icon follows mute and device changes made outside the menu. \"poll\" checks every `pollInterval` seconds; \"global\" uses `hs.audiodevice.watcher`, which has one callback for all of Hammerspoon, so it replaces any callback another Spoon or your config has set. Default: \"poll\".\n  * pollInterval - Number of seconds between checks when watch is \"poll\"; at least 0.5. Default: 2.\n\nReturns:\n * The AudioShortlist object\n\nNotes:\n * Changing the configuration of a running menu takes effect at once.",
+        "stripped_doc" : [
+          "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.",
+          ""
+        ],
+        "desc" : "Sets the configuration. Options not given keep their defaults. Raises an error naming the first bad option, and changes nothing, if any option is unknown or of the wrong type.",
+        "name" : "configure",
+        "notes" : [
+          " * Changing the configuration of a running menu takes effect at once."
+        ],
+        "signature" : "AudioShortlist:configure(options)",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object",
+          ""
+        ],
+        "def" : "AudioShortlist:configure(options)",
+        "parameters" : [
+          " * options - A table with any of these keys:",
+          "  * outputs - A list of favourite outputs, in menu order. Each is a table with `label` (what the menu shows) and either `name` (the device's exact macOS name) or `uid` (a fragment of its CoreAudio UID, for devices whose names are not unique). Default: empty, which lists every connected output.",
+          "  * inputs - A list of favourite inputs, in the same form. Default: empty, which lists every connected input.",
+          "  * alertSoundsFollowOutput - Boolean; choosing an output also makes it the device for alert sounds. Default: true.",
+          "  * showMute - Boolean; show the \"Mute output\" row. Default: true.",
+          "  * showOtherOutputs - Boolean; show the \"Other outputs\" submenu when outputs has favourites. Default: true.",
+          "  * showOtherInputs - Boolean; show the \"Other inputs\" submenu when inputs has favourites. Default: true.",
+          "  * showSoundSettings - Boolean; show the \"Sound Settings…\" row. Default: true.",
+          "  * showTransport - Boolean; show \"(USB)\", \"(Bluetooth)\" and so on after names in the Other submenus. Default: true.",
+          "  * title - String; text to show in the menu bar instead of an icon, such as \"🔊\". Default: nil (icons).",
+          "  * mutedTitle - String; text while the output is muted. Default: the title.",
+          "  * icon - String; a macOS system image name or the path of an image file, used as a template image. Default: \"NSTouchBarAudioOutputVolumeHighTemplate\".",
+          "  * mutedIcon - String; the icon while the output is muted. Default: \"NSTouchBarAudioOutputMuteTemplate\".",
+          "  * tooltip - String. Default: \"Audio devices\".",
+          "  * autosaveName - String; the name macOS uses to keep the item's place in the menu bar. Default: \"AudioShortlist\".",
+          "  * watch - \"poll\", \"global\" or \"none\": how the icon follows mute and device changes made outside the menu. \"poll\" checks every `pollInterval` seconds; \"global\" uses `hs.audiodevice.watcher`, which has one callback for all of Hammerspoon, so it replaces any callback another Spoon or your config has set. Default: \"poll\".",
+          "  * pollInterval - Number of seconds between checks when watch is \"poll\"; at least 0.5. Default: 2.",
+          ""
+        ]
+      },
+      {
+        "doc" : "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.\n\nParameters:\n * None\n\nReturns:\n * A string\n\nNotes:\n * For scripts and agents that cannot see the menu: `hs -c 'return spoon.AudioShortlist:describe()' <\/dev\/null`",
+        "stripped_doc" : [
+          "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.",
+          ""
+        ],
+        "desc" : "Returns the menu as it would open now, as text: one row per line, \"* \" before a ticked row, submenus indented by four spaces.",
+        "name" : "describe",
+        "notes" : [
+          " * For scripts and agents that cannot see the menu: `hs -c 'return spoon.AudioShortlist:describe()' <\/dev\/null`"
+        ],
+        "signature" : "AudioShortlist:describe()",
+        "type" : "Method",
+        "returns" : [
+          " * A string",
+          ""
+        ],
+        "def" : "AudioShortlist:describe()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.",
+          ""
+        ],
+        "desc" : "Sets the default configuration. Called by `hs.loadSpoon()`; it does not create the menu bar item, `AudioShortlist:start()` does.",
+        "name" : "init",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:init()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:init()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.",
+          ""
+        ],
+        "desc" : "Updates the menu bar icon or title to the current mute state. The menu itself is rebuilt every time it opens and needs no refresh.",
+        "name" : "refresh",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:refresh()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:refresh()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Makes a device the default, by the label the menu shows for it.\n\nParameters:\n * kind - \"output\" or \"input\"\n * label - A favourite's label, or, when that kind has no favourites, a connected device's name as the menu shows it\n\nReturns:\n * \"ok\", or a short reason the switch did not happen (\"not connected: …\", \"no such label: …\")",
+        "stripped_doc" : [
+          "Makes a device the default, by the label the menu shows for it.",
+          ""
+        ],
+        "desc" : "Makes a device the default, by the label the menu shows for it.",
+        "name" : "select",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:select(kind, label)",
+        "type" : "Method",
+        "returns" : [
+          " * \"ok\", or a short reason the switch did not happen (\"not connected: …\", \"no such label: …\")"
+        ],
+        "def" : "AudioShortlist:select(kind, label)",
+        "parameters" : [
+          " * kind - \"output\" or \"input\"",
+          " * label - A favourite's label, or, when that kind has no favourites, a connected device's name as the menu shows it",
+          ""
+        ]
+      },
+      {
+        "doc" : "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.",
+          ""
+        ],
+        "desc" : "Opens the menu under the menu bar item, or at the mouse pointer when the item is not in the menu bar.",
+        "name" : "showMenu",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:showMenu()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:showMenu()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Creates the menu bar item and starts following mute and device changes.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object\n\nNotes:\n * The item is created with its autosave name in the same call. Set afterwards, macOS has already placed the item as new, and menu bar managers such as Ice or Thaw file it as hidden on every reload.",
+        "stripped_doc" : [
+          "Creates the menu bar item and starts following mute and device changes.",
+          ""
+        ],
+        "desc" : "Creates the menu bar item and starts following mute and device changes.",
+        "name" : "start",
+        "notes" : [
+          " * The item is created with its autosave name in the same call. Set afterwards, macOS has already placed the item as new, and menu bar managers such as Ice or Thaw file it as hidden on every reload."
+        ],
+        "signature" : "AudioShortlist:start()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object",
+          ""
+        ],
+        "def" : "AudioShortlist:start()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Describes the current default output and input, with their labels when they are favourites.\n\nParameters:\n * None\n\nReturns:\n * A string of two lines, such as \"output: Laptop [MacBook Pro Speakers]\"",
+        "stripped_doc" : [
+          "Describes the current default output and input, with their labels when they are favourites.",
+          ""
+        ],
+        "desc" : "Describes the current default output and input, with their labels when they are favourites.",
+        "name" : "status",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:status()",
+        "type" : "Method",
+        "returns" : [
+          " * A string of two lines, such as \"output: Laptop [MacBook Pro Speakers]\""
+        ],
+        "def" : "AudioShortlist:status()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Removes the menu bar item and stops following changes.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Removes the menu bar item and stops following changes.",
+          ""
+        ],
+        "desc" : "Removes the menu bar item and stops following changes.",
+        "name" : "stop",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:stop()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:stop()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Mutes or unmutes the default output device.\n\nParameters:\n * None\n\nReturns:\n * The AudioShortlist object",
+        "stripped_doc" : [
+          "Mutes or unmutes the default output device.",
+          ""
+        ],
+        "desc" : "Mutes or unmutes the default output device.",
+        "name" : "toggleMute",
+        "notes" : [
+
+        ],
+        "signature" : "AudioShortlist:toggleMute()",
+        "type" : "Method",
+        "returns" : [
+          " * The AudioShortlist object"
+        ],
+        "def" : "AudioShortlist:toggleMute()",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      }
+    ],
+    "name" : "AudioShortlist"
+  }
+]
